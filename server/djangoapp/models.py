@@ -28,4 +28,4 @@ class CarModel(models.Model):
         }, default='suv')
     year = models.IntegerField()
     horsepower = models.IntegerField(validators=[MinValueValidator(0)])
-    make = models.ForeignKey(CarMake, on_delete=models.CASCADE)
+    car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE)

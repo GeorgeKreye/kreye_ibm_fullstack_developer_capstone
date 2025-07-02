@@ -12,6 +12,9 @@ class CarMake(models.Model):
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=511)
 
+    def __str__(self):
+        return self.name
+
 # Car Model model
 class CarModel(models.Model):
     name = models.CharField(max_length=255)
@@ -23,5 +26,7 @@ class CarModel(models.Model):
         'mus':'Muscle'
         }, default='suv')
     year = models.IntegerField()
-    horsepower = models.IntegerField(validators=[MinValueValidator(0)])
     car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE)
+
+    def __str___(self):
+        return self.name

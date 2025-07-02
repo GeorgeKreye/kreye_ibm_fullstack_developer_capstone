@@ -26,10 +26,12 @@ def get_cars(request):
     print(count)
     if count == 0:
         initiate()
-    car_models = CarModel.objects.select_related('make')
+    car_models = CarModel.objects.select_related('car_make')
+    print(len(car_models))
     cars = []
+    print(len(cars))
     for car_model in car_models:
-        cars.append({"CarModel": car_model.name, "CarMake": car_model.make.name})
+        cars.append({"CarModel": car_model.name, "CarMake": car_model.car_make.name})
     return JsonResponse({"CarModels":cars})
 
 # Create your views here.

@@ -11,10 +11,6 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 class CarMake(models.Model):
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=511)
-    year_founded = models.IntegerField(default=1900, validators=[
-        MinValueValidator(1900),
-        MaxValueValidator(2023)
-    ])
 
 # Car Model model
 class CarModel(models.Model):

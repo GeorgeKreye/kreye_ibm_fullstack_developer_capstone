@@ -97,11 +97,9 @@ def get_cars(request):
     if count == 0:
         initiate()
     car_models = CarModel.objects.select_related('car_make')
-    print(len(car_models))
     cars = []
     for car_model in car_models:
         cars.append({"CarModel": car_model.name, "CarMake": car_model.car_make.name})
-    print(len(cars))
     return JsonResponse({"CarModels":cars})
 
 # # Update the `get_dealerships` view to render the index page with

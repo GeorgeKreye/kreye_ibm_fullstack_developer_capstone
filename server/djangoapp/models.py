@@ -1,25 +1,31 @@
 # Uncomment the following imports before adding the Model code
 
-# from django.db import models
-# from django.utils.timezone import now
-# from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db import models
+from django.utils.timezone import now
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 # Create your models here.
 
-# <HINT> Create a Car Make model `class CarMake(models.Model)`:
-# - Name
-# - Description
-# - Any other fields you would like to include in car make model
-# - __str__ method to print a car make object
+# Car Make model
+class CarMake(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.CharField(max_length=511)
+    year_founded = models.IntegerField(default=1900, validators=[
+        MinValueValidator(1900),
+        MaxValueValidator(2023)
+    ])
 
-
-# <HINT> Create a Car Model model `class CarModel(models.Model):`:
-# - Many-To-One relationship to Car Make model (One Car Make has many
-# Car Models, using ForeignKey field)
-# - Name
-# - Type (CharField with a choices argument to provide limited choices
-# such as Sedan, SUV, WAGON, etc.)
-# - Year (IntegerField) with min value 2015 and max value 2023
-# - Any other fields you would like to include in car model
-# - __str__ method to print a car make object
+# Car Model model
+class CarModel(models.Model):
+    name = models.CharField(max_length=255)
+    type = models.CharField(max_length=3, choices={
+        'sdn':'Sedan',
+        'suv':'SUV',
+        'wgn':'Wagon',
+        'spr':'Sport',
+        'mus':'Muscle'
+        }, default='suv')
+    year = models.IntegerField()
+    horsepower = models.IntegerField(validators=[MinValueValidator(0)])
+    make = models.ForeignKey(CarMake, on_delete=models.CASCADE)

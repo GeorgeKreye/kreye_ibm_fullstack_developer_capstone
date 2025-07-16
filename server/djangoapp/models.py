@@ -1,3 +1,7 @@
+"""
+Models for backend
+"""
+
 # Uncomment the following imports before adding the Model code
 
 from django.db import models
@@ -9,14 +13,20 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Car Make model
 class CarMake(models.Model):
+    """
+    Model for car make
+    """
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=511)
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 # Car Model model
 class CarModel(models.Model):
+    """
+    Model for car model
+    """
     name = models.CharField(max_length=255)
     type = models.CharField(max_length=3, choices={
         'sdn':'Sedan',
@@ -29,4 +39,4 @@ class CarModel(models.Model):
     car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE)
 
     def __str___(self):
-        return self.name
+        return str(self.name)

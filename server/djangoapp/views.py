@@ -96,7 +96,6 @@ def registration(request):
             last_name=last_name,
             password=password,
             email=email)
-
         
         # Login the user and redirect to list page
         login(request, user)
@@ -183,6 +182,6 @@ def add_review(request):
             })
     else:
         return JsonResponse({
-            "status":401,
+            "status": 401,
             "message": "Cannot post review: Unauthenticated"
         })

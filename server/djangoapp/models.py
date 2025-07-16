@@ -5,8 +5,10 @@ Models for backend
 # Uncomment the following imports before adding the Model code
 
 from django.db import models
-from django.utils.timezone import now
-from django.core.validators import MaxValueValidator, MinValueValidator
+
+
+# from django.utils.timezone import now
+# from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 # Create your models here.
@@ -22,6 +24,7 @@ class CarMake(models.Model):
     def __str__(self):
         return str(self.name)
 
+
 # Car Model model
 class CarModel(models.Model):
     """
@@ -29,11 +32,11 @@ class CarModel(models.Model):
     """
     name = models.CharField(max_length=255)
     type = models.CharField(max_length=3, choices={
-        'sdn':'Sedan',
-        'suv':'SUV',
-        'wgn':'Wagon',
-        'spr':'Sport',
-        'mus':'Muscle'
+        'sdn': 'Sedan',
+        'suv': 'SUV',
+        'wgn': 'Wagon',
+        'spr': 'Sport',
+        'mus': 'Muscle'
         }, default='suv')
     year = models.IntegerField()
     car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE)

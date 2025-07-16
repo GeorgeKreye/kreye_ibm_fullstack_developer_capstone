@@ -43,7 +43,6 @@ def login_user(request):
     username = data['userName']
     password = data['password']
 
-
     # Try to check if provide credential can be authenticated
     user = authenticate(username=username, password=password)
     data = {"userName": username}
@@ -59,8 +58,8 @@ def logout_request(request):
     """
     Logout backend
     """
-    logout(request) # Terminate user session
-    data = {"userName": ""} # Return empty username
+    logout(request)          # Terminate user session
+    data = {"userName": ""}  # Return empty username
     return JsonResponse(data)
 
 
@@ -96,12 +95,12 @@ def registration(request):
             last_name=last_name,
             password=password,
             email=email)
-        
+
         # Login the user and redirect to list page
         login(request, user)
-        data = {"userName":username, "status": "Authenticated"}
+        data = {"userName": username, "status": "Authenticated"}
         return JsonResponse(data)
-    data = {"userName":username, "error": "Already Registered"}
+    data = {"userName": username, "error": "Already Registered"}
     return JsonResponse(data)
 
 
@@ -117,7 +116,10 @@ def get_cars(_):
     car_models = CarModel.objects.select_related('car_make')
     cars = []
     for car_model in car_models:
-        cars.append({"CarModel": car_model.name, "CarMake": car_model.car_make.name})
+        cars.append({
+            "CarModel": car_model.name,
+            "CarMake": car_model.car_make.name
+        })
     return JsonResponse({"CarModels": cars})
 
 
@@ -134,7 +136,7 @@ def get_dealerships(_, state="All"):
     else:
         endpoint = "/fetchDealers/" + state
     dealerships = get_request(endpoint)
-    return JsonResponse({"status": 200, "dealers":dealerships})
+    return JsonResponse({"status": 200, "dealers": dealerships})
 
 
 # Create a `get_dealer_reviews` view to render the reviews of a dealer
@@ -162,7 +164,7 @@ def get_dealer_details(_, dealer_id):
         endpoint = "/fetchDealer/" + str(dealer_id)
         dealership = get_request(endpoint)
         return JsonResponse({"status": 200, "dealer": dealership})
-    return JsonResponse({"status": 400,"message": "Bad Request"})
+    return JsonResponse({"status": 400, "message": "Bad Request"})
 
 
 # Create a `add_review` view to submit a review

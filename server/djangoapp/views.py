@@ -13,7 +13,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import logout
 from django.contrib import messages
 from datetime import datetime
-
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
 from django.contrib.auth import login, authenticate
 from django.views.decorators.csrf import csrf_exempt
@@ -76,7 +76,7 @@ def registration(request):
         # Check if user already exists
         User.objects.get(username=username)
         username_exist = True
-    except Exception:
+    except ObjectDoesNotExist:
         # If not, simply log this is a new user
         logger.debug("%s is new user", username)
 
@@ -167,7 +167,7 @@ def add_review(request):
         try:
             response = post_review(data)
             return JsonResponse({"status": 201, "message": response})
-        except Exception as e:
-            return JsonResponse({"status": 401, "message": f"Error in posting review\n{e}"})
+        except Exception:
+            return JsonResponse({"status": 401, "message": f"Error in posting review"})
     else:
         return JsonResponse({"status":403, "message": "Unauthorized"})

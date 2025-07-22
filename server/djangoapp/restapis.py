@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 backend_url = os.getenv(
-    'backend_url', 
+    'backend_url',
     default="http://localhost:3030")
 searchcars_url = os.getenv(
     'searchcars_url',
@@ -55,6 +55,7 @@ def post_review(data_dict):
     except Exception as err:
         print(f"Unexpected {err=}, {type(err)=}")
         print("Network exception occured")
+
 
 def searchcars_request(endpoint, **kwargs):
     params = ""
